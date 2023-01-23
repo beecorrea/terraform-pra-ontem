@@ -58,7 +58,7 @@ terraform {
   }
 
   required_providers {
-    milkloud_provider = {
+    milcloud_provider = {
       version = ">= 1.0.0"
       source = "clouddemilhoes/milcloud"
     }
