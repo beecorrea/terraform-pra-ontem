@@ -66,6 +66,42 @@ terraform {
 }
 ```
 
+### Bloco de recurso
+O bloco de recurso é, no final das contas, o mais importante da configuração Terraform. Ele é constituído de 4 partes:
+
+1. A palavra chave `resource`, para indicar que um recurso será criado.
+2. O tipo do recurso, nesse caso `"milcloud_database"`.
+3. Um identificador **opcional** para apelidar o recurso no **estado** criado, visível apenas para o Terraform.
+4. Um bloco com os parâmetros da configuração, que podem ser encontrados na documentação do `provider`.
+
+```terraform
+resource "milcloud_database" "banco_de_dev_com_dados_de_prod" {
+  instance_name = "o_banco"
+  size = "40G"
+  allow_deletion = false
+}
+```
+
+### Bloco de módulo
+Os módulos de Terraform são como funções ou classes em linguagens de programação modernas. Eles permitem abstrair diversos recursos e provisioná-los de uma vez só ou com padrões e boas-práticas pré-configurados.
+
+Parecido com o bloco de recurso, ele é composto pelas seguintes partes:
+
+1. A palavra chave `module`, para indicar que um módulo será utilizado.
+2. Um identificador **opcional** para apelidar o módulo no **estado** criado, visível apenas para o Terraform.
+3. Um bloco com os parâmetros da configuração, que podem ser encontrados na documentação do `provider`.
+
+Dois destes parâmetros são usados para o setup do módulo:
+- `source`: obrigatório. indica onde código do módulo está, pode ser um repositório Git externo, uma pasta dentro do projeto...
+- `version`: opcional. indica qual versão do módulo utilizar.
+
+```terraform
+module "modulo_da_empresa_criar_vm" {
+  source = "clouddemilhoes/milcloud/vm"
+  version = ">= v1.2.3"
+}
+```
+
 ## Como provisionar a infraestrutura?
 Após criar um arquivo de configuração, com extensão `.tf` (por exemplo, `main.tf`), descrevendo o estado desejado da sua infraestrutura, e executa-se os comandos para provisioná-la. Os comandos mais importantes são:
 
